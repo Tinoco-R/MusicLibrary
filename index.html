@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/client/settings_page/stylesheet.css" rel="stylesheet"/>
+    <title>Account</title>
+</head>
+
+<body>
+    <main>
+        <h1>
+            Account Info
+        </h1>
+        <div class="settings_table"> <!--https://www.w3schools.com/tags/tag_div.ASP-->
+            <table id = "account_info_main_table">
+                <tr>
+                    <td> Username </td>
+                    <td> axel_a <!--NEED QUERY--> </td>
+                    <td> 
+                        <button id="open_edit_username_modal_btn">
+                            <img src="/client/icons/pencil_icon.png" alt="edit_icon" width="25" height="25"/>
+                            change
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Cougar ID </td>
+                    <td> 1234567 <!--NEED QUERY--> </td>
+                </tr>
+                <tr>
+                    <td> Email Address </td>
+                    <td> abcde@gmail.com <!--NEED QUERY--> </td>
+                    <td>
+                        <button id="open_edit_email_modal_btn">
+                            <img src="/client/icons/pencil_icon.png" alt="edit_icon" width="25" height="25"/>
+                            change
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <p></p>
+        <div> <!--camelcamper on https://forum.freecodecamp.org/t/add-a-submit-button-to-a-form-in-a-new-line/233887-->
+            <button id="open_edit_password_modal_btn"> Change Password </button>
+        </div>
+        <p></p> 
+        <div>
+            <p> Need help?
+                <button id="open_contact_us_modal_btn"> Contact Us </button>
+            </p>
+        </div>
+
+        <!-- change username modal container (change email pop-up) -->
+        <div class="modal_container" id="modal_container_id">
+            <div class="modal" id="edit_username_modal">
+                <h2> Change My Username </h2>
+                <p> Your current username is INSERT_NAME_HERE </p>
+                <label> Enter your new username: </label>
+                <input type="text" id="username_input">
+                <button> OK </button>
+                <button id="close_edit_username_modal_btn"> Return </button>
+            </div>
+        </div>
+
+        <!-- change email modal container (change email pop-up) -->
+        <div class="modal_container_email" id="modal_container_id_email">
+            <div class="modal_email" id="edit_email_modal">
+                <h2> Change My e-mail Address </h2>
+                <p> Your current e-mail is INSERT_EMAIL_HERE </p>
+                <label> Enter your new e-mail: </label>
+                <input type="text" id="email_input">
+                <button> OK </button>
+                <button id="close_edit_email_modal_btn"> Return </button>
+            </div>
+        </div>
+
+        <!-- change password modal container (change password pop-up) -->
+        <div class="modal_container_password" id="modal_container_id_password">
+            <div class="modal_password" id="edit_password_modal">
+                <h2> Change My Password </h2>
+                <!-- Although the user could be asked to provide current password for security resons,
+                I have decide not to implement that feature due to time constraints-->
+                <label> Enter your new password: </label>
+                <input type="text" id="password_input">
+                <button> OK </button>
+                <button id="close_edit_password_modal_btn"> Return </button>
+            </div>
+        </div>
+
+        <!-- contact_us modal container (contact_us pop-up) -->
+        <div class="modal_container_contact_us" id="modal_container_id_contact_us">
+            <div class="modal_contact_us" id="edit_contact_us_modal">
+                <h2> Contact Us </h2>
+                <!-- Although the user could be asked to provide current password for security resons,
+                I have decide not to implement that feature due to time constraints-->
+                <label> Enter your message: </label>
+                <input type="text" id="contact_us_message_input">
+                <button> OK </button>
+                <button id="close_contact_us_modal_btn"> Return </button>
+            </div>
+        </div>
+
+        <script src="/client/settings_page/script.js" ></script>
+    </main>
+</body>
+
+</html>
