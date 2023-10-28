@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href='https://fonts.googleapis.com/css?family=League Gothic' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Upload</title>
+    <style>
+        body {
+            font-family: 'League Gothic';font-size: 30; letter-spacing: 1px;
+            background-color: #000000;
+        }
+        h1 {
+            color: #C8102E;
+        }
+        h2 {
+            color: #C8102E;
+        }
+        h3 {
+            color: #F6BE00;
+        }
+        form {
+            color: #F6BE00;
+        }
+        div {
+            color: #FFF9D9;
+        }
+        #songInputs{
+            border-radius: 10px;
+            background: #640817;
+        }
+        input {
+            color: beige;
+            background-color: #54585A; /* Change this to the shade of gray you prefer */
+        }
+
+        /* Hides both sections on initial page load */
+        #albumSection, #singleSection {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Music Upload</h1>
+    <form id="selection" name="form1">
+        <h3>Select Upload Type</h3>
+        <div>
+            <label for="album">Album</label>
+            <input type="radio" name="musicType" id="album" value="album">
+        </div>
+        <div>
+            <label for="single">Single</label>
+            <input type="radio" name="musicType" id="single" value="single">
+        </div>
+    </form>
+
+    <form id="albumSelected" name="form2">
+        <div id="albumSection">
+            <h1>Enter Album Information</h1>
+            <h3>Please Input Number of Songs and Click Add Song Fields Button</h3>
+            <div>
+                <label for="albumTitle">Title</label>
+                <input type="text" id="albumTitle" name="albumTitle" placeholder="Album Title" required>
+            </div>
+            
+            <div>
+                <label for="albumGenre">Genre</label>
+                <input type="text" id="albumGenre" name="albumGenre" placeholder="Album Genre" required>
+            </div>
+    
+            
+            <div>
+                <label for="albumSongs">Number of Songs</label>
+                <input type="number" id="albumSongs" name="albumSongs"  placeholder="1" min="1" required>
+            </div>
+    
+            <div>
+                <label for="albumCover">Cover</label>
+                <input type="file" id="albumCover" name="albumCover">
+            </div>
+
+            <div id="songInputs"></div>
+
+            <div id="buttonContainer">
+                <button type="button" id="addAllSongFields" onclick="generateSongFields()">Add Song Fields</button>
+                <button type="button" id="removeExtraSongFields" onclick="removeExtraSongFields()">Remove Extra Songs</button>
+                <button type="submit" id="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+
+    <form id="singleSelected" name="form3">
+        <div id="singleSection">
+            <h1>Enter Single Information</h1>
+    
+            <div>
+                <label for="singleTitle">Title</label>
+                <input type="text" id="singleTitle" name="singleTitle" placeholder="Single Title" required>
+            </div>
+            
+            <div>
+                <label for="singleGenre">Genre</label>
+                <input type="text" id="singleGenre" name="singleGenre" placeholder="Single Genre" required>
+            </div>
+    
+            <div>
+                <label for="singleCover">Cover</label>
+                <input type="file" id="singleCover" name="singleCover">
+            </div>
+    
+            <div>
+                <label for="singleFile">File</label>
+                <input type="file" id="singleFile" name="singleFile" required>
+            </div>
+            <button type="submit" id="submit">Submit</button>
+        </div>
+    </form>
+
+    <script>
+        // Will either show data for Album Upload or Single Upload depending on radio button selection
+        const albumSelection = document.getElementById("albumSection");
+        const singleSelection = document.getElementById("singleSection");
+
+        document.getElementById("selection").addEventListener("change", function() {
+            if (document.getElementById("album").checked) {
+                albumSelection.style.display = "block";
+                singleSelection.style.display = "none";
+            }
+            else if (document.getElementById("single").checked) {
+                albumSelection.style.display = "none";
+                singleSelection.style.display = "block";
+            }
+        });
+    </script>
+
+    <script>
+        // Creates div element to dynamically create new song entries
+        const albumSongInputs = document.getElementById("songInputs");
+        let albumSize = 0;
+        
+        // Will automatically generate the necessary number of song entries depending on current song count
+        function generateSongFields() {
+            const songsInAlbum = parseInt(document.getElementById("albumSongs").value);
+            const songsToAdd = songsInAlbum - albumSize;
+            if (songsToAdd <= 0) {return;}
+
+            for (let i = 0; i < songsToAdd; i++) {
+                addNextSongField();
+            }
+        }
+
+        // Will automatically remove the necessary number of song entries depending on current song count
+        function removeSongFields() {
+            const songsInAlbum = parseInt(document.getElementById("albumSongs").value);
+            const songsToRemove = albumSize - songsInAlbum;
+            if (songsToRemove <= 0) {return;}
+
+            for (let i = 0; i < songsToRemove; i++) {
+                deleteLastSongField();
+            }
+        }
+
+
+        // Incrementally adds one song field
+        function addNextSongField() {
+            albumSize++;
+            const songDiv = document.createElement("div");
+            
+            // Create a small header for the section
+            const header = document.createElement("h3");
+            header.textContent = `Song ${albumSize}`;
+
+            // User must enter song title
+            const titleLabel = document.createElement("label");
+            titleLabel.textContent = `Title`;
+            const titleInput = document.createElement("input");
+            titleInput.type = "text";
+            titleInput.name = `songTitle${albumSize}`;
+            titleInput.required = true;
+            titleInput.placeholder = "Enter song title";
+
+                        
+            // User must upload song file
+            const fileLabel = document.createElement("label");
+            fileLabel.textContent = `File`;
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            fileInput.name = `songFile${albumSize}`;
+            fileInput.required = true;
+            // Apply margins using CSS
+            songDiv.style.margin = "10px";
+            titleInput.style.marginRight = "20px";
+
+            songDiv.appendChild(header);
+            songDiv.appendChild(titleLabel);
+            songDiv.appendChild(titleInput);
+            songDiv.appendChild(fileLabel);
+            songDiv.appendChild(fileInput);
+            albumSongInputs.appendChild(songDiv);
+        }
+
+        function deleteLastSongField() {
+            // Can't delete songs that don't exist or if less than number of songs album needs
+            if ((albumSize <= 0) || (albumSize <= parseInt(document.getElementById("albumSongs").value))) {
+                return;
+            }
+            // Selects last song entered
+            const lastSongEntry = albumSongInputs.lastChild;
+
+            // Removes last song and decrements albumSize
+            albumSongInputs.removeChild(lastSongEntry);
+            albumSize--;
+        }
+
+        function validateForm() {
+            const enteredSongs = document.querySelectorAll("input[name^='songTitle']").length;
+            const songsInAlbum = parseInt(document.getElementById("albumSongs").value);
+
+            // Checks to see if actual number of songs matches number of songs in album
+            if (albumSize !== songsInAlbum) {
+                alert("Please enter the correct number of songs.");
+                event.preventDefault();
+            }
+        }
+
+        document.getElementById("albumSelected").addEventListener("submit", validateForm);
+        document.getElementById("addAllSongFields").addEventListener("click", generateSongFields);
+        document.getElementById("removeExtraSongFields").addEventListener("click", removeSongFields);
+        document.getElementById("addNextSongField").addEventListener("click", addNextSongField);
+        document.getElementById("deleteLastSongField").addEventListener("click", deleteLastSongField);
+    </script>
+
+</body>
+</html>
