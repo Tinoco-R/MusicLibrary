@@ -1,0 +1,172 @@
+main {
+    width: 100%;
+}
+
+body {
+    background-color: rgb(254, 253, 253);
+}
+
+button {
+    cursor: pointer;
+}
+
+
+#account_info_main_table {
+    border: 1px solid black;
+}
+
+/* username pop-up*/ 
+.modal_container {
+    background-color: rgb(93, 93, 93);
+    position: relative; /*john Smith on: https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.3 ease;
+    pointer-events: none;
+    /* Joseph Silber and john Smith on:
+    https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_container.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal {
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 10px 40px;
+    width: 75%;
+    max-width: 100%;
+}
+
+.modal h1 {
+    margin: 0;
+}
+
+/*email address pop-up*/
+.modal_container_email {
+    background-color: rgb(93, 93, 93);
+    position: relative; /*john Smith on: https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.3 ease;
+    pointer-events: none;
+    /* Joseph Silber and john Smith on:
+    https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_container_email.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal_email {
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 10px 40px;
+    width: 75%;
+    max-width: 100%;
+}
+
+.modal_email h1 {
+    margin: 0;
+}
+
+/*password pop-up*/
+.modal_container_password {
+    background-color: rgb(93, 93, 93);
+    position: relative; /*john Smith on: https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.3 ease;
+    pointer-events: none;
+    /* Joseph Silber and john Smith on:
+    https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_container_password.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal_password {
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 10px 40px;
+    width: 75%;
+    max-width: 100%;
+}
+
+.modal_password h1 {
+    margin: 0;
+}
+
+
+
+/*contact us pop-up*/
+.modal_container_contact_us {
+    background-color: rgb(93, 93, 93);
+    position: relative; /*john Smith on: https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    transition: opacity 0.3 ease;
+    pointer-events: none;
+    /* Joseph Silber and john Smith on:
+    https://stackoverflow.com/questions/14402038/how-to-position-a-container-in-the-middle-of-the-screen */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal_container_contact_us.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal_contact_us {
+    background-color: rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 10px 40px;
+    width: 75%;
+    max-width: 100%;
+}
+
+.modal_contact_us h1 {
+    margin: 0;
+}
+
+
