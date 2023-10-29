@@ -44,7 +44,7 @@
 
 <body>
     <h1>Music Upload</h1>
-    <form id="selection" name="form1">
+    <form id="selection" name="selectionForm" method="post" action="/selectionForm/process">
         <h3>Select Upload Type</h3>
         <div>
             <label for="album">Album</label>
@@ -56,7 +56,7 @@
         </div>
     </form>
 
-    <form id="albumSelected" name="form2">
+    <form id="albumSelected" name="albumForm" method="post" action="/albumForm/process">
         <div id="albumSection">
             <h1>Enter Album Information</h1>
             <h3>Please Input Number of Songs and Click Add Song Fields Button</h3>
@@ -91,7 +91,7 @@
         </div>
     </form>
 
-    <form id="singleSelected" name="form3">
+    <form id="singleSelected" name="singleForm" method="post" action="/singleForm/process">
         <div id="singleSection">
             <h1>Enter Single Information</h1>
     
