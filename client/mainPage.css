@@ -1,11 +1,22 @@
 #songlist {
   list-style: none;
   padding: 0;
-
 }
 
 html {
   font-size: 1.5em;
+}
+
+/*the style used for the hyperlinks*/
+a {
+  color: #C8102E;
+  text-decoration: none;
+}
+a:visited {
+  color: #960C22;
+}
+a:hover, a:active {
+  color: #640817;
 }
 
 /*main body colors for the page*/
@@ -45,18 +56,15 @@ main {
   text-shadow: -1px 0 #FFFFFF, 0 1px #FFFFFF, 1px 0 #FFFFFF, 0 -1px #FFFFFF;
 }
 
-/*the style used for the hyperlinks*/
-a {
-  color: #C8102E;
-  text-decoration: none;
+/*For the search bar*/
+#searchbar {
+  margin-top: 3%;
+  margin-left: 1%; 
+  padding: .8rem; 
+  border-radius: .6rem; 
+  width: 24rem;
+  color: #000;
 }
-a:visited {
-  color: #960C22;
-}
-a:hover, a:active {
-  color: #640817;
-}
-
 
 .song-list {
   display: flex;
@@ -121,13 +129,5 @@ a:hover, a:active {
   margin-right: 10px;
 }
 
-/*For the search bar*/
-#searchbar {
-  margin-top: 3%;
-  margin-left: 1%; 
-  padding: .8rem; 
-  border-radius: .6rem; 
-  width: 24rem;
-  color: #000;
-}
+
 
