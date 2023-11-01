@@ -1,22 +1,33 @@
-const mssql = require("msssql");
+const sql = require("msnodesqlv8");
 
-const db = mssql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "test",
+const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+// Create a connection object
+const connection = new sql.Connection(connectionString, (err) => {
+    if (err) {
+        console.error("Error connecting to the database:", err);
+    } else {
+        console.log("Connected to the database");
+    }
 });
 
-db.connect(err => {
-    if (err) { throw err; }
-    console.log("DB connection OK");
+// Listen for the 'error' event
+connection.on("error", (err) => {
+    console.error("Database connection error:", err);
 });
 
-db.query("select * FROM 'users'", (err, results) => {
-    if (err) {throw err; }
-    console.log(results)
+// Listen for the 'connect' event
+connection.on("connect", () => {
+    console.log("Database connection established");
 });
 
+// Open the database connection
+connection.connect();
+
+/*
+sql.query(connectionString, query, (err, rows) => {
+    console.log(rows);
+});
 // Simulated data (replace with real data from your database)
 const songData = {
     song: "apple song", genre: "Rap", rating: "0.0", views: "0"
@@ -40,3 +51,4 @@ topTenSongs.forEach((song,index) => {
   document.getElementbyID("song-list").appendChild(songElement);
     
 });
+*/
