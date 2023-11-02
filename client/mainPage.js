@@ -27,7 +27,11 @@ const config = {
 /*
 const sql = require("msnodesqlv8");
 
+<<<<<<< HEAD
 const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+=======
+const connectionString = "DSN=NaimMusic";
+>>>>>>> b6af25d8cfb3b1dfcc18a1bd7cf7d0431fe7b230
 
 // Create a connection to the database using a DSN
 sql.open(connectionString, (err, connection) => {
