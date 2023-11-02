@@ -1,48 +1,61 @@
+const sql = require("msnodesqlv8");
+
+// Specify the DSN in the connection string
+const connectionString = "DSN=NaimMusic";
+
+// Create a connection to the database using the DSN
+sql.open(connectionString, (err, connection) => {
+    if (err) {
+        console.error("Error connecting to the database:", err);
+    } else {
+        console.log("Connected to the database");
+
+        // Now you can use the 'connection' object to execute queries
+        // For example:
+        connection.query("SELECT * FROM [User]", (queryErr, rows) => {
+            if (queryErr) {
+                console.error("Error executing query:", queryErr);
+            } else {
+                // Process the query results
+                console.log("Query results:", rows);
+            }
+        });
+    }
+});
+
+/*
+
 const sql = require('mssql');
 
 
 const config = {
-    user: 'sa',
-    password: 'Axel_sql2023!',
-    server: 'localhost',
-    port: 1430,
+    user: 'MusicAdmin',
+    password: 'CoogMusic1!',
+    server: 'tcp:music-lib-server5.database.windows.net,1433',
     database: 'music_library',
     pool: {
         max: 10,                        // Max connections at any given time
         min: 0,                         // Min connections
         idleTimeoutMillis: 30000,       // Max time a connection can remain idle before being removed (30s)
     },
-    options: {
-        encrypt: true,
-        trustServerCertificate: true,   // In prod ideally set to false
-        connectionTimeout: 15000,       // Time to wait for a connection to DB server before timeout (15s)
-        requestTimeout: 15000,          // Time to wait for a DB query request before timeout (15s)
-        retryConnectionMax: 3,          // Maximum number of times to retry connecting to the server
-        retryConnectionInterval: 1000,  // Interval between retry attempts
-        enableArithAbort: true,         // Handles divide by 0 errors / numeric overflows during query execution
-        enableArithIgnore: false,       // Causes DB to ignore certain arithmetic errors and to continue executing query despite errors
-    },
 };
 
-/*
-const sql = require("msnodesqlv8");
+const pool = new sql.ConnectionPool(config);
 
-<<<<<<< HEAD
-const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-=======
-const connectionString = "DSN=NaimMusic";
->>>>>>> b6af25d8cfb3b1dfcc18a1bd7cf7d0431fe7b230
+pool.connect().then(() => {
+    const request = pool.request();
 
-// Create a connection to the database using a DSN
-sql.open(connectionString, (err, connection) => {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("Connected to the database");
-        // You can now use the 'connection' object to execute queries
-    }
+    request.query('SELECT * FROM [User]').then((result) => {
+        const data = result.recordset;
+        console.log('Retrieved data:', data)
+
+        pool.close();
+    }).catch((err) => {
+        console.error('Error executing SELECT statement:', err)
+        pool.close
+
+    });
 });
-
 
 sql.query(connectionString, query, (err, rows) => {
     console.log(rows);
