@@ -1,28 +1,16 @@
 const sql = require("msnodesqlv8");
 
-const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+const connectionString = "DSN=NaimsMusic";
 
-// Create a connection object
-const connection = new sql.Connection(connectionString, (err) => {
+// Create a connection to the database using a DSN
+sql.open(connectionString, (err, connection) => {
     if (err) {
         console.error("Error connecting to the database:", err);
     } else {
         console.log("Connected to the database");
+        // You can now use the 'connection' object to execute queries
     }
 });
-
-// Listen for the 'error' event
-connection.on("error", (err) => {
-    console.error("Database connection error:", err);
-});
-
-// Listen for the 'connect' event
-connection.on("connect", () => {
-    console.log("Database connection established");
-});
-
-// Open the database connection
-connection.connect();
 
 /*
 sql.query(connectionString, query, (err, rows) => {
