@@ -1,6 +1,6 @@
 const sql = require("msnodesqlv8");
 
-const connectionString = "DSN=NaimsMusic";
+const connectionString = "DSN=NaimMusic";
 
 // Create a connection to the database using a DSN
 sql.open(connectionString, (err, connection) => {
