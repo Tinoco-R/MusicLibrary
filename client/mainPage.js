@@ -1,6 +1,37 @@
+const sql = require('mssql');
+
+
+const config = {
+    user: 'sa',
+    password: 'Axel_sql2023!',
+    server: 'localhost',
+    port: 1430,
+    database: 'music_library',
+    pool: {
+        max: 10,                        // Max connections at any given time
+        min: 0,                         // Min connections
+        idleTimeoutMillis: 30000,       // Max time a connection can remain idle before being removed (30s)
+    },
+    options: {
+        encrypt: true,
+        trustServerCertificate: true,   // In prod ideally set to false
+        connectionTimeout: 15000,       // Time to wait for a connection to DB server before timeout (15s)
+        requestTimeout: 15000,          // Time to wait for a DB query request before timeout (15s)
+        retryConnectionMax: 3,          // Maximum number of times to retry connecting to the server
+        retryConnectionInterval: 1000,  // Interval between retry attempts
+        enableArithAbort: true,         // Handles divide by 0 errors / numeric overflows during query execution
+        enableArithIgnore: false,       // Causes DB to ignore certain arithmetic errors and to continue executing query despite errors
+    },
+};
+
+/*
 const sql = require("msnodesqlv8");
 
-const connectionString = "DSN=NaimsMusic";
+<<<<<<< HEAD
+const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+=======
+const connectionString = "DSN=NaimMusic";
+>>>>>>> b6af25d8cfb3b1dfcc18a1bd7cf7d0431fe7b230
 
 // Create a connection to the database using a DSN
 sql.open(connectionString, (err, connection) => {
@@ -12,7 +43,7 @@ sql.open(connectionString, (err, connection) => {
     }
 });
 
-/*
+
 sql.query(connectionString, query, (err, rows) => {
     console.log(rows);
 });
