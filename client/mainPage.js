@@ -1,3 +1,29 @@
+const sql = require("msnodesqlv8");
+
+const connectionString = "server=tcp:music-lib-server5.database.windows.net,1433;Database=Music_Lib_DB;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
+const query = "SELECT Cougar_ID FROM [User]";
+
+sql.query(connectionString, query, (err, rows) => {
+    console.log(rows);
+});
+
+/*
+
+const sql = require("msnodesqlv8");
+
+const connectionString = "DSN=NaimMusic";
+
+// Create a connection to the database using a DSN
+sql.open(connectionString, (err, connection) => {
+    if (err) {
+        console.error("Error connecting to the database:", err);
+    } else {
+        console.log("Connected to the database");
+        // You can now use the 'connection' object to execute queries
+    }
+});
+
+
 const sql = require('mssql');
 
 
@@ -23,25 +49,6 @@ const config = {
         enableArithIgnore: false,       // Causes DB to ignore certain arithmetic errors and to continue executing query despite errors
     },
 };
-
-/*
-const sql = require("msnodesqlv8");
-
-<<<<<<< HEAD
-const connectionString = "Server=tcp:music-lib-server5.database.windows.net,1433;Initial Catalog=Music_Lib_DB;Persist Security Info=False;User ID=MusicAdmin;Password=CoogMusic1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-=======
-const connectionString = "DSN=NaimMusic";
->>>>>>> b6af25d8cfb3b1dfcc18a1bd7cf7d0431fe7b230
-
-// Create a connection to the database using a DSN
-sql.open(connectionString, (err, connection) => {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("Connected to the database");
-        // You can now use the 'connection' object to execute queries
-    }
-});
 
 
 sql.query(connectionString, query, (err, rows) => {
