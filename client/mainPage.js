@@ -6,26 +6,25 @@ const dbConfig = {
     user: "MusicAdmin",
     password: "CoogMusic1!",
     port: 1433
-
 };
 
 async function getUser() {
-    let pool 
+    let pool;  // Declare the variable outside the try block
     try {
-        const pool = await sql.connect(dbConfig);
-        const result = await pool.request().query("SELECT * FROM [User]")
-
+        pool = await sql.connect(dbConfig);  // Use the existing variable
+        const result = await pool.request().query("SELECT * FROM [Artist]");
         console.log(result.recordset);
     } catch (err) {
         console.error(err);
     } finally {
-        if (pool){
+        if (pool) {
             pool.close();
         }
     }
 }
 
 getUser();
+
 
 
 
