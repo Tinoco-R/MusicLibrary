@@ -1,3 +1,7 @@
+<?php
+  include 'db-artist.php'
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +11,6 @@
   <title>Document</title>
   <link rel="stylesheet" href="mainPage.css">
   <link rel="icon" href="img/eagle.svg" type="image/x-icon">
-  <script src = "mainPage.js"></script>
 </head>
 
 <body>
@@ -112,42 +115,21 @@
     </ul>
 
   <hr> <!--horizontal line-->
-  
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <script src = "mainPage.js">
+    $(document).ready(async function() {
+        $("#artist").load("mainPage.js")
+      });
+  </script>
   <h1 class="uhFont"> Recommended Artist </h1>
     <ul id="Recommended" class="song-list">
       <li class="song-item">
         <div class="Rec-box"></div>
-        <div class="song-info">
+        <div id = "artist" class="song-info">
           <h2></h2>
         </div>
       </li>
     </ul>
-    <script>
-    document.addEventListener("DOMContentLoaded", async function () {
-      // Fetch recommended artists from the updated endpoint
-      const recommendedArtists = await fetchRecommendedArtists();
-  
-      // Get the UL element to append artists
-      const recommendedArtistsList = document.getElementById("Recommended");
-  
-      // Loop through the array and create list items for each artist
-      recommendedArtists.forEach(artist => {
-          // Create a new LI element
-          const listItem = document.createElement("li");
-          listItem.classList.add("song-item");
-  
-          // Update the inner HTML of the LI element
-          listItem.innerHTML = `
-              <div class="Rec-box"></div>
-              <div class="song-info">
-                  <h2>${artist}</h2>
-              </div>
-          `;
-  
-          // Append the LI element to the UL
-          recommendedArtistsList.appendChild(listItem);
-      });
-  });
-  </script>
   </body>
   </html>
