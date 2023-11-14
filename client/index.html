@@ -113,41 +113,9 @@
   <hr> <!--horizontal line-->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <h1 class="uhFont"> Recommended Artist </h1>
-  <script src="mainPage.js"></script>
-  <script>
-    // Define fetchUsernames function here
-    async function fetchUsernames() {
-      try {
-        pool = await sql.connect(dbConfig);
-        const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2");
-        return result.recordset;
-      } catch (error) {
-        console.error('Error fetching usernames:', error);
-        return [];
-      }
-    }
-  
-    // Use the fetchUsernames function
-    document.addEventListener('DOMContentLoaded', async () => {
-      // Fetch usernames from the database
-      const users = await fetchUsernames();
-  
-      // Get the UL element to append usernames
-      const userList = document.getElementById('Recommended');
-  
-      // Loop through the array and create list items for each username
-      users.forEach(user => {
-        // Access the 'Username' property
-        const username = user.Username;
-  
-        // Create a new LI element
-        const listItem = document.createElement('li');
-        listItem.textContent = username;
-  
-        // Append the LI element to the UL
-        userList.appendChild(listItem);
-      });
-    });
+  <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+  <script src="mainPage.js">
+    
   </script>
   <ul id="Recommended" class="song-list">
     <li class="song-item">

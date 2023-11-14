@@ -1,8 +1,9 @@
 const dbConfig = {
     user: 'MusicAdmin',
     password: 'CoogMusic1!',
-    server: 'tcp:music-lib-server5.database.windows.net',
-    database: 'Music_Lib_DB',
+    server: 'musiclibraryteam5.database.windows.net',
+    database: 'MusicLibraryDatabase',
+    port: 1433,
     pool: {
         max: 10,                        // Max connections at any given time
         min: 0,                         // Min connections
