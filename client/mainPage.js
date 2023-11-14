@@ -1,5 +1,6 @@
-const fs = require('fs');
-const sql = require("mssql");
+import fs from 'fs';
+import pkg from 'mssql';
+const { pool,connect } = pkg;
 
 const dbConfig = {
     server: "musiclibraryteam5.database.windows.net",
@@ -31,7 +32,7 @@ const dbConfig = {
 // Define a function to fetch usernames from the database
 async function fetchUsernames() {
     try {
-        pool = await sql.connect(dbConfig);  // Use the existing variable
+        pool = await connect(dbConfig);  // Use the existing variable
         const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2");
         console.log(result.recordset)
         return result; // Assuming the data is an array of objects with a 'Username' property
@@ -45,7 +46,7 @@ async function fetchUsernames() {
     }
 }
 
-// fetchUsernames();
+fetchUsernames();
 
   
 

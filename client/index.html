@@ -113,50 +113,50 @@
 
   <hr> <!--horizontal line-->
   <h1 class="uhFont"> Recommended Artist </h1>
-  <ul id="Recommended" class="song-list">
-    <script src="mainPage.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-          // Fetch artists from the database or use a predefined array
-          const resultFromDatabase = await fetchUsernames(); // Adjust the function call as needed
-  
-          // Extract usernames using the map function
-          const usernames = resultFromDatabase.map(entry => entry.Username);
+  <script src="mainPage.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Fetch artists from the database or use a predefined array
+        const resultFromDatabase = await fetchUsernames(); // Adjust the function call as needed
 
-          // Now 'usernames' should be an array of strings containing usernames
-          console.log(usernames);
-  
-          // Get the UL element to append artists
-          const artistsList = document.getElementById('Recommended');
-  
-          // Loop through the array and create list items for each artist
-          artists.forEach(artist => {
-              // Create a new LI element
-              const listItem = document.createElement('li');
-              listItem.classList.add("song-item");
-  
-              // Create a new div for the artist box
-              const artistBox = document.createElement('div');
-              artistBox.classList.add("Rec-box");
-  
-              // Create a new div for the artist info
-              const artistInfo = document.createElement('div');
-              artistInfo.classList.add("song-info");
-  
-              // Create an H2 element for the artist name
-              const artistName = document.createElement('h2');
-              artistName.textContent = artist;
-  
-              // Append the artist box, info, and name to the LI element
-              artistInfo.appendChild(artistName);
-              listItem.appendChild(artistBox);
-              listItem.appendChild(artistInfo);
-  
-              // Append the LI element to the UL
-              artistsList.appendChild(listItem);
-          });
-      });
-  </script>
+        // Extract usernames using the map function
+        const usernames = resultFromDatabase.map(entry => entry.Username);
+
+        // Now 'usernames' should be an array of strings containing usernames
+        console.log(usernames);
+
+        // Get the UL element to append artists
+        const artistsList = document.getElementById('Recommended');
+
+        // Loop through the array and create list items for each artist
+        artists.forEach(artist => {
+            // Create a new LI element
+            const listItem = document.createElement('li');
+            listItem.classList.add("song-item");
+
+            // Create a new div for the artist box
+            const artistBox = document.createElement('div');
+            artistBox.classList.add("Rec-box");
+
+            // Create a new div for the artist info
+            const artistInfo = document.createElement('div');
+            artistInfo.classList.add("song-info");
+
+            // Create an H2 element for the artist name
+            const artistName = document.createElement('h2');
+            artistName.textContent = artist;
+
+            // Append the artist box, info, and name to the LI element
+            artistInfo.appendChild(artistName);
+            listItem.appendChild(artistBox);
+            listItem.appendChild(artistInfo);
+
+            // Append the LI element to the UL
+            artistsList.appendChild(listItem);
+        });
+    });
+</script>
+  <ul id="Recommended" class="song-list">
     <li class="song-item">
       <div class="Rec-box"></div>
       <div id="artist" class="song-info">
