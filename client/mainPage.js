@@ -1,5 +1,4 @@
-const http = require("http")
-const url = require("url")
+const fs = require('fs');
 const sql = require("mssql");
 
 const dbConfig = {
@@ -29,14 +28,13 @@ const dbConfig = {
 
 // getUser();
 
-// mainPage.js
-
 // Define a function to fetch usernames from the database
 async function fetchUsernames() {
     try {
         pool = await sql.connect(dbConfig);  // Use the existing variable
         const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2");
-        return result.recordset; // Assuming the data is an array of objects with a 'Username' property
+        console.log(result.recordset)
+        return result; // Assuming the data is an array of objects with a 'Username' property
     } catch (error) {
         console.error('Error fetching usernames:', error);
         return [];
@@ -46,6 +44,10 @@ async function fetchUsernames() {
         }
     }
 }
+
+// fetchUsernames();
+
+  
 
 
 
