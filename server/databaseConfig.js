@@ -1,9 +1,8 @@
 const dbConfig = {
-    user: 'MusicAdmin',
-    password: 'CoogMusic1!',
-    server: 'musiclibraryteam5.database.windows.net',
+    user: 'sa',
+    password: 'coogs@CS',
+    server: 'ec2-18-188-254-236.us-east-2.compute.amazonaws.com',
     database: 'MusicLibraryDatabase',
-    port: 1433,
     pool: {
         max: 10,                        // Max connections at any given time
         min: 0,                         // Min connections

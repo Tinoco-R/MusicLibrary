@@ -1,78 +1,9 @@
-// let data = []
-
-// const dbConfig = {
-//     server: "musiclibraryteam5.database.windows.net",
-//     database: "MusicLibraryDatabase",
-//     user: "MusicAdmin",
-//     password: "CoogMusic1!",
-//     port: 1433
-// };
-
-// require (["mssql"], async function(mssql){
-//     let pool
-//     try {
-//         pool = await mssql.connect(dbConfig);  // Use the existing variable
-//         const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2 ");
-//         console.log(result.recordset); // Assuming the data is an array of objects with a 'Username' property
-//         data = result;
-//     } catch (error) {
-//         console.error('Error fetching usernames:', error);
-//         return [];
-//     } finally {
-//         if (pool) {
-//             pool.close();
-//         }
-//     }
-// });
-
-
-
-// async function getUser() {
-//     let pool;  // Declare the variable outside the try block
-//     try {
-//         pool = await sql.connect(dbConfig);  // Use the existing variable
-//         const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2");
-//         console.log(result.recordset);
-//         return result 
-//     } catch (err) {
-//         console.error(err);
-//     } finally {
-//         if (pool) {
-//             pool.close();
-//         }
-//     }
-// }
-
-// getUser();
-
-// async function fetchUsernames() {
-//     let pool
-//     try {
-//         pool = await sql.connect(dbConfig);  // Use the existing variable
-//         const result = await pool.request().query("SELECT Username FROM [User] Where Role_ID = 2 ");
-//         console.log(result.recordset); // Assuming the data is an array of objects with a 'Username' property
-//         return result;
-//     } catch (error) {
-//         console.error('Error fetching usernames:', error);
-//         return [];
-//     } finally {
-//         if (pool) {
-//             pool.close();
-//         }
-//     }
-// }
-
-// Use the fetchUsernames functio
-
 document.addEventListener('DOMContentLoaded', async () => {
-    // Fetch usernames from the database
-    let data = [];
-
-    fetch("http://localhost:8080/").then(x => x.json()).then( x => {
+    fetch("http://localhost:8080/data1").then(x => x.json()).then( x => {
         const userList = document.getElementById('Recommended');
         
     // Loop through the array and create list items for each username
-    x.data.forEach(user => {
+    x.data1.forEach(user => {
         // Create a new LI element
         const listItem = document.createElement('li');
         listItem.classList.add("song-item");
@@ -98,9 +29,160 @@ document.addEventListener('DOMContentLoaded', async () => {
         userList.appendChild(listItem);
 
         });
-    })
-
     });
-
-
+    fetch("http://localhost:8080/data3").then(y => y.json()).then( y => {
+        const userlist = document.getElementById('new-releases');
+        
+    // Loop through the array and create list items for each username
+    y.data2.forEach(peeps => {
+        // Create a new LI element
+        const listitem = document.createElement('li');
+        listitem.classList.add("song-item");
     
+        // Create a new LI element
+        const artistbox = document.createElement('div');
+        artistbox.classList.add("NR-box");
+    
+        // Create a new div for the artist info
+        const artistinfo = document.createElement('div');
+        artistinfo.classList.add("song-info");
+
+        // Create an H2 element for the artist name
+        const artistname = document.createElement('h2');
+        artistname.textContent = peeps["Username"];
+
+        // Append the artist box, info, and name to the LI element
+        artistinfo.appendChild(artistname);
+        listitem.appendChild(artistbox);
+        listitem.appendChild(artistinfo);
+
+        // Append the LI element to the UL
+        userlist.appendChild(listitem);
+
+        });
+    });
+});
+
+// async function fetchDataAndRender(url, listId, boxClass) {
+//     try {
+//         const response = await fetch(url);
+//         const data = await response.json();
+
+//         console.log(data);
+
+//         const userList = document.getElementById(listId);
+
+//         // Clear existing content in the list
+//         userList.innerHTML = '';
+
+//         // Loop through the array and create list items for each username
+//         data.data.forEach(user => {
+//             // Create a new LI element
+//             const listItem = document.createElement('li');
+//             listItem.classList.add("song-item");
+
+//             // Create a new LI element
+//             const artistBox = document.createElement('div');
+//             artistBox.classList.add(boxClass);
+
+//             // Create a new div for the artist info
+//             const artistInfo = document.createElement('div');
+//             artistInfo.classList.add("song-info");
+
+//             // Create an H2 element for the artist name
+//             const artistName = document.createElement('h2');
+//             artistName.textContent = user["Username"];
+
+//             // Append the artist box, info, and name to the LI element
+//             artistInfo.appendChild(artistName);
+//             listItem.appendChild(artistBox);
+//             listItem.appendChild(artistInfo);
+
+//             // Append the LI element to the UL
+//             userList.appendChild(listItem);
+//         });
+
+//     } catch (error) {
+//         console.error('Error fetching and rendering data:', error);
+//     }
+// }
+
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     // Fetch usernames from the database
+//     let data = [];
+
+//     fetch("http://localhost:8080/data1").then(x => x.json()).then( x => {
+//         const userList = document.getElementById('Recommended');
+        
+//     // Loop through the array and create list items for each username
+//     x.data.forEach(user => {
+//         // Create a new LI element
+//         const listItem = document.createElement('li');
+//         listItem.classList.add("song-item");
+    
+//         // Create a new LI element
+//         const artistBox = document.createElement('div');
+//         artistBox.classList.add("Rec-box");
+    
+//         // Create a new div for the artist info
+//         const artistInfo = document.createElement('div');
+//         artistInfo.classList.add("song-info");
+
+//         // Create an H2 element for the artist name
+//         const artistName = document.createElement('h2');
+//         artistName.textContent = user["Username"];
+
+//         // Append the artist box, info, and name to the LI element
+//         artistInfo.appendChild(artistName);
+//         listItem.appendChild(artistBox);
+//         listItem.appendChild(artistInfo);
+
+//         // Append the LI element to the UL
+//         userList.appendChild(listItem);
+
+//         });
+//     })
+
+// });
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     // Fetch usernames from the database
+//     let data = [];
+
+//     fetch("http://localhost:8080/data2").then(y => y.json()).then( y => {
+//         const userlist = document.getElementById('Recommended');
+        
+//     // Loop through the array and create list items for each username
+//     y.data.forEach(peeps => {
+//         // Create a new LI element
+//         const listitem = document.createElement('li');
+//         listitem.classList.add("song-item");
+    
+//         // Create a new LI element
+//         const artistbox = document.createElement('div');
+//         artistbox.classList.add("NR-box");
+    
+//         // Create a new div for the artist info
+//         const artistinfo = document.createElement('div');
+//         artistinfo.classList.add("song-info");
+
+//         // Create an H2 element for the artist name
+//         const artistname = document.createElement('h2');
+//         artistname.textContent = peeps["Username"];
+
+//         // Append the artist box, info, and name to the LI element
+//         artistinfo.appendChild(artistname);
+//         listitem.appendChild(artistbox);
+//         listitem.appendChild(artistinfo);
+
+//         // Append the LI element to the UL
+//         userlist.appendChild(listitem);
+
+//         });
+//     })
+
+    // });
+
+
