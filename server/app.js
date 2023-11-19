@@ -8,32 +8,32 @@ const events = require('events');                                               
 
 // Here you can include any other built in / user modules as well (think #include <...>)
 // const dt = require('./myFirstModule');
-const dbConfig = require('./databaseConfig');
-
-// Event creation and event handlers
-const eventEmitter = new events.eventEmitter();                                    // All event properties and methods are an instance of this eventEmitter object
-/*
-//Creates an event handler:
-var myEventHandler = function () {
-  console.log('I hear a scream!');
-}
-  
-//Assign the event handler to an event:
-eventEmitter.on('scream', myEventHandler);
-  
-//Fire the 'scream' event:
-eventEmitter.emit('scream');
-*/
-
+const dbConfig = require('./databaseConfig.js');
 
 // Creates a server object
-http.createServer(function(req, res) {                                           // req - request from client as an object; res - response from server as an object
+// This is our Route Line ***
+const server = http.createServer(async function(req, res) {                                           // req - request from client as an object; res - response from server as an object
+//
 
     var q = url.parse(req.url, true).query;                                      // true - parse query string (part after '?') into object; false - leave it as a string (see line 3)
     var fileName = "." + q.pathname;                                             // Generates file name using url object.pathname method
     var filePath = path.join(__dirname, '..', 'client', fileName);               // Navigates to correct directory and gets correct path to wanted file name
 
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Request-Method', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+    res.setHeader('Access-Control-Allow-Headers', req.header?.origin || "*");
+    if ( req.method === 'OPTIONS' ) {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
+    // This is from client submitting data to the database 
     if (req.method === 'POST') {
+
+        // This is if it is the same file as this
         if (fileName === 'musicUpload.html') {
             // Data parsing
             // Data buffer will incrementally collect data sent via request
@@ -41,25 +41,7 @@ http.createServer(function(req, res) {                                          
             req.on('data', (data) => {
                 body += data;
             });
-          
-            /*
-            fs.readFile(filePath, function(err, data) {                                  // attempts to read from the file at located filePath and stores into a buffer or string called data
-                if (err) {                                                               // if error, throws 404 status code and outputs a plain text page to the user with message 'File not found'
-                    res.writeHead(404, {'Content-Type': 'text/plain'});
-                    res.end('File not found');
-                }
-                else {                                                                   // else outputs data (which is the contents of the file) as the indicated type (in this case, text/html)
-                    res.writeHead(200, {'Content-Type': 'text/html'})                    // Specifies that content should be displayed as HTML; 200 is the status code for 'OK'
-                    res.write(data);                                                     // Write in the response for the client
-                    res.end();                                                           // sends the data to the client's browser
-                }
-            })
-            */
 
-            // Data Validation / Security authentication (user must be an artist)
-            // if errors in data, redirect user to page with a back button so that they can modify accordingly
-
-            // else 
             sql.connect(dbConfig, (err) => {
                 if (err) {                                                       // Database connection error handler
                     console.error('Database connection error:', err);
@@ -88,23 +70,30 @@ http.createServer(function(req, res) {                                          
     // Unsure if best way to go about this, but I know each page will have different queries so need to know name of page here (held in file name)
     // We can create functions / modules outside of this app for better organization maybe
     else if (req.method === 'GET') {
-        // Keep as template for now, create branch for your html doc
-        if (fileName === 'specified_file_1.html') {
-            // Connect to database
-
-            // Do user account authentication to ensure they have access to see report (if they are an artist and the report is for their music)/ playlist (if hidden but they are the owner), etc.
-
-            // If no access, close sql connection and output appropriate message to them
-
-            // Else, do a request.query('SELECT thing_1, thing_2, etc., FROM table_1, table_2, WHERE conditions', ...) to pull rows of data. Next, find out how to modify page to showcase data pulled (may need to use fs object)
-
+        let pool
+        try {
+            pool = await sql.connect(dbConfig);  // Use the existing variable
+            const result = await pool.request().query(`
+                SELECT Username FROM [MusicLibrary].[User] where Role_ID = 2;
+                SELECT Username FROM [MusicLibrary].[User] where Role_ID = 1;
+                SELECT Username FROM [MusicLibrary].[User] where Role_ID = 3;
+                `);
+            //console.log(result.recordset); // Assuming the data is an array of objects with a 'Username' property
+            res.end(JSON.stringify({
+                data1: result.recordsets[0], // Results of the first query
+                data2: result.recordsets[1], // Results of the second query
+                data3: result.recordsets[2] // Results of the third query
+            }));
+        } catch (error) {
+            console.error('Error fetching usernames:', error);
+            return [];
+        } finally {
+            if (pool) {
+                pool.close();
+            }
         }
-        else if (fileName === 'specified_file_2.html') {
-
-        }
-        // else if (etc.)
     }
-    res.end();                                                                   // Ends the response
+    //res.end();                                                                   // Ends the response
 })
 
 server.listen(8080, () => {                                                      // Server object listens on this port

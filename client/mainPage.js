@@ -1,80 +1,188 @@
-const sql = require("msnodesqlv8");
-
-const connectionString = "server=tcp:music-lib-server5.database.windows.net,1433;Database=Music_Lib_DB;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
-const query = "SELECT Cougar_ID FROM [User]";
-
-sql.query(connectionString, query, (err, rows) => {
-    console.log(rows);
-});
-
-/*
-
-const sql = require("msnodesqlv8");
-
-const connectionString = "DSN=NaimMusic";
-
-// Create a connection to the database using a DSN
-sql.open(connectionString, (err, connection) => {
-    if (err) {
-        console.error("Error connecting to the database:", err);
-    } else {
-        console.log("Connected to the database");
-        // You can now use the 'connection' object to execute queries
-    }
-});
-
-
-const sql = require('mssql');
-
-
-const config = {
-    user: 'sa',
-    password: 'Axel_sql2023!',
-    server: 'localhost',
-    port: 1430,
-    database: 'music_library',
-    pool: {
-        max: 10,                        // Max connections at any given time
-        min: 0,                         // Min connections
-        idleTimeoutMillis: 30000,       // Max time a connection can remain idle before being removed (30s)
-    },
-    options: {
-        encrypt: true,
-        trustServerCertificate: true,   // In prod ideally set to false
-        connectionTimeout: 15000,       // Time to wait for a connection to DB server before timeout (15s)
-        requestTimeout: 15000,          // Time to wait for a DB query request before timeout (15s)
-        retryConnectionMax: 3,          // Maximum number of times to retry connecting to the server
-        retryConnectionInterval: 1000,  // Interval between retry attempts
-        enableArithAbort: true,         // Handles divide by 0 errors / numeric overflows during query execution
-        enableArithIgnore: false,       // Causes DB to ignore certain arithmetic errors and to continue executing query despite errors
-    },
-};
-
-
-sql.query(connectionString, query, (err, rows) => {
-    console.log(rows);
-});
-// Simulated data (replace with real data from your database)
-const songData = {
-    song: "apple song", genre: "Rap", rating: "0.0", views: "0"
-};
-
-// Sort it out by vies highest to lowest
-songData.sort((a,b) => b.views - a.views);
-
-const topTenSongs = songData.slice(0,10);
-
-topTenSongs.forEach((song,index) => {
-  //creates html for each song and fills in the data.
-  const songElement = document.createElement("div");
-  songElement.innerHTML = `
-      <h2>${song.song}</h2>
-      <p>Genre: ${song.genre}</p>
-      <p>Rating: ${song.rating}</p>
-      <p>Views: ${song.views}</p>
-  `;
-  // appends each of the song within the div element
-  document.getElementbyID("song-list").appendChild(songElement);
+document.addEventListener('DOMContentLoaded', async () => {
+    fetch("http://localhost:8080/data1").then(x => x.json()).then( x => {
+        const userList = document.getElementById('Recommended');
+        
+    // Loop through the array and create list items for each username
+    x.data1.forEach(user => {
+        // Create a new LI element
+        const listItem = document.createElement('li');
+        listItem.classList.add("song-item");
     
+        // Create a new LI element
+        const artistBox = document.createElement('div');
+        artistBox.classList.add("Rec-box");
+    
+        // Create a new div for the artist info
+        const artistInfo = document.createElement('div');
+        artistInfo.classList.add("song-info");
+
+        // Create an H2 element for the artist name
+        const artistName = document.createElement('h2');
+        artistName.textContent = user["Username"];
+
+        // Append the artist box, info, and name to the LI element
+        artistInfo.appendChild(artistName);
+        listItem.appendChild(artistBox);
+        listItem.appendChild(artistInfo);
+
+        // Append the LI element to the UL
+        userList.appendChild(listItem);
+
+        });
+    });
+    fetch("http://localhost:8080/data3").then(y => y.json()).then( y => {
+        const userlist = document.getElementById('new-releases');
+        
+    // Loop through the array and create list items for each username
+    y.data2.forEach(peeps => {
+        // Create a new LI element
+        const listitem = document.createElement('li');
+        listitem.classList.add("song-item");
+    
+        // Create a new LI element
+        const artistbox = document.createElement('div');
+        artistbox.classList.add("NR-box");
+    
+        // Create a new div for the artist info
+        const artistinfo = document.createElement('div');
+        artistinfo.classList.add("song-info");
+
+        // Create an H2 element for the artist name
+        const artistname = document.createElement('h2');
+        artistname.textContent = peeps["Username"];
+
+        // Append the artist box, info, and name to the LI element
+        artistinfo.appendChild(artistname);
+        listitem.appendChild(artistbox);
+        listitem.appendChild(artistinfo);
+
+        // Append the LI element to the UL
+        userlist.appendChild(listitem);
+
+        });
+    });
 });
-*/
+
+// async function fetchDataAndRender(url, listId, boxClass) {
+//     try {
+//         const response = await fetch(url);
+//         const data = await response.json();
+
+//         console.log(data);
+
+//         const userList = document.getElementById(listId);
+
+//         // Clear existing content in the list
+//         userList.innerHTML = '';
+
+//         // Loop through the array and create list items for each username
+//         data.data.forEach(user => {
+//             // Create a new LI element
+//             const listItem = document.createElement('li');
+//             listItem.classList.add("song-item");
+
+//             // Create a new LI element
+//             const artistBox = document.createElement('div');
+//             artistBox.classList.add(boxClass);
+
+//             // Create a new div for the artist info
+//             const artistInfo = document.createElement('div');
+//             artistInfo.classList.add("song-info");
+
+//             // Create an H2 element for the artist name
+//             const artistName = document.createElement('h2');
+//             artistName.textContent = user["Username"];
+
+//             // Append the artist box, info, and name to the LI element
+//             artistInfo.appendChild(artistName);
+//             listItem.appendChild(artistBox);
+//             listItem.appendChild(artistInfo);
+
+//             // Append the LI element to the UL
+//             userList.appendChild(listItem);
+//         });
+
+//     } catch (error) {
+//         console.error('Error fetching and rendering data:', error);
+//     }
+// }
+
+
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     // Fetch usernames from the database
+//     let data = [];
+
+//     fetch("http://localhost:8080/data1").then(x => x.json()).then( x => {
+//         const userList = document.getElementById('Recommended');
+        
+//     // Loop through the array and create list items for each username
+//     x.data.forEach(user => {
+//         // Create a new LI element
+//         const listItem = document.createElement('li');
+//         listItem.classList.add("song-item");
+    
+//         // Create a new LI element
+//         const artistBox = document.createElement('div');
+//         artistBox.classList.add("Rec-box");
+    
+//         // Create a new div for the artist info
+//         const artistInfo = document.createElement('div');
+//         artistInfo.classList.add("song-info");
+
+//         // Create an H2 element for the artist name
+//         const artistName = document.createElement('h2');
+//         artistName.textContent = user["Username"];
+
+//         // Append the artist box, info, and name to the LI element
+//         artistInfo.appendChild(artistName);
+//         listItem.appendChild(artistBox);
+//         listItem.appendChild(artistInfo);
+
+//         // Append the LI element to the UL
+//         userList.appendChild(listItem);
+
+//         });
+//     })
+
+// });
+
+// document.addEventListener('DOMContentLoaded', async () => {
+//     // Fetch usernames from the database
+//     let data = [];
+
+//     fetch("http://localhost:8080/data2").then(y => y.json()).then( y => {
+//         const userlist = document.getElementById('Recommended');
+        
+//     // Loop through the array and create list items for each username
+//     y.data.forEach(peeps => {
+//         // Create a new LI element
+//         const listitem = document.createElement('li');
+//         listitem.classList.add("song-item");
+    
+//         // Create a new LI element
+//         const artistbox = document.createElement('div');
+//         artistbox.classList.add("NR-box");
+    
+//         // Create a new div for the artist info
+//         const artistinfo = document.createElement('div');
+//         artistinfo.classList.add("song-info");
+
+//         // Create an H2 element for the artist name
+//         const artistname = document.createElement('h2');
+//         artistname.textContent = peeps["Username"];
+
+//         // Append the artist box, info, and name to the LI element
+//         artistinfo.appendChild(artistname);
+//         listitem.appendChild(artistbox);
+//         listitem.appendChild(artistinfo);
+
+//         // Append the LI element to the UL
+//         userlist.appendChild(listitem);
+
+//         });
+//     })
+
+    // });
+
+

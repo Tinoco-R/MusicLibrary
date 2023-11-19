@@ -72,6 +72,13 @@ p{
   color: white;
   text-shadow: 1px 1px 2px pink
 }
+.popup {
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      width: 300px;
+      text-align: center;
+}
 .login-container {
     width: 300px;
     margin: 0 auto;
